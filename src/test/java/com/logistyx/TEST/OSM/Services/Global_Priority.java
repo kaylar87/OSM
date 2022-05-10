@@ -2,7 +2,6 @@ package com.logistyx.TEST.OSM.Services;
 
 
 import com.logistyx.utilities.AbstractBaseClasses.OSM.Services.OSMBaseGlobalPriorityNotDG;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -207,11 +206,11 @@ public class Global_Priority extends OSMBaseGlobalPriorityNotDG {
     }
 
 
-    @DisplayName("EDI - Package Id - '420535349205520220307000006656'")
+    @DisplayName("EDI - Package Id - '9241920220307000007615'")
     @Test
     public void test14() {
 
-        String packageIdFromJson = osmPojoShipments.getShippingUnits().get(0).getForwarderRef();
+        String packageIdFromJson = osmPojoShipments.getShippingUnits().get(0).getForwarderRef().substring(8);
         //    System.out.println("packageIdFromJson = " + packageIdFromJson);
         String packageIdFromEDI = decodedValuesInternational.get(0).replace("\"", "");
         //    System.out.println("packageIdFromEDI = " + packageIdFromEDI);
@@ -223,7 +222,7 @@ public class Global_Priority extends OSMBaseGlobalPriorityNotDG {
     @DisplayName("EDI - Service - '1'")
     @Test
     public void test15() {
-        System.out.println("decodedStringConveyancesInternational = " + decodedStringConveyancesInternational);
+
         String serviceHarcoded = carrierServiceSTCValueFromJsonMap.get(carrierServiceFromJson).substring(2);
         //    System.out.println("serviceHarcoded = " + serviceHarcoded);
         String serviceFromEDI = decodedValuesInternational.get(1);

@@ -18,7 +18,8 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.*;
 
-import static io.restassured.RestAssured.*;
+import static io.restassured.RestAssured.expect;
+import static io.restassured.RestAssured.given;
 
 public abstract class OSMBaseGlobalPriorityEPacketNotDG {
 

@@ -1,7 +1,6 @@
 package com.logistyx.TEST.OSM.Origins_Destinations.Domestic.Negative;
 
 import com.logistyx.utilities.AbstractBaseClasses.OSM.Origins_Destinations.Domestic.Negative.OSMBaseMediaMailNotDGFailingInternational;
-import com.logistyx.utilities.AbstractBaseClasses.OSM.Origins_Destinations.Domestic.Negative.OSMBasePriorityMailNotDGFailingInternational;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

@@ -353,11 +353,11 @@ public class First_Class_Mail extends OSMBaseFirstClassMailNotDG {
     }
 
 
-    @DisplayName("EDI - Package Id - '420535349205520220307000006656'")
+    @DisplayName("EDI - Package Id - '9241920220307000007615'")
     @Test
     public void test26() {
 
-        String packageIdFromJson = osmPojoShipments.getShippingUnits().get(0).getForwarderRef();
+        String packageIdFromJson = osmPojoShipments.getShippingUnits().get(0).getForwarderRef().substring(8);
         //    System.out.println("packageIdFromJson = " + packageIdFromJson);
         String packageIdFromEDI = decodedValuesDomestic.get(0).replace("\"", "");
         //    System.out.println("packageIdFromEDI = " + packageIdFromEDI);

@@ -2,19 +2,19 @@ package com.logistyx.utilities.AbstractBaseClasses.OSM.Track_And_Trace.Negative;
 
 
 import com.logistyx.pojo.osm.OSMPojo;
+import com.logistyx.utilities.Environment;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import com.logistyx.utilities.Environment;
 
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Map;
 
-import static io.restassured.RestAssured.*;
+import static io.restassured.RestAssured.expect;
+import static io.restassured.RestAssured.given;
 
 public abstract class OSMBaseGlobalPriorityParcelTrackFalseFailing {
 

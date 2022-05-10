@@ -1,14 +1,8 @@
 package com.logistyx.TEST.OSM.Per_Package_Cases;
 
-import com.logistyx.utilities.AbstractBaseClasses.OSM.Origins_Destinations.Domestic.Negative.OSMBaseBoundPrintedMatterNotDGFailingInternational;
 import com.logistyx.utilities.AbstractBaseClasses.OSM.Per_Package_Cases.OSMBasePost123Get;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 
 
 public class Post_1_2_3_Get extends OSMBasePost123Get {

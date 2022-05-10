@@ -336,6 +336,7 @@ public class Media_Mail_Track extends OSMBaseMediaMailTrackNotDG  {
         String packageIdFromEDI = decodedValuesDomestic.get(0).replace("\"", "");
         //    System.out.println("packageIdFromEDI = " + packageIdFromEDI);
         assertThat(packageIdFromEDI, is(equalTo(packageIdFromJson)));
+        System.out.println("packageIdFromEDI.length() = " + packageIdFromEDI.length());
 
     }
 

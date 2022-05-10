@@ -2,7 +2,6 @@ package com.logistyx.TEST.OSM.Origins_Destinations.Military_APO_FPO_DPO.Positive
 
 
 import com.logistyx.utilities.AbstractBaseClasses.OSM.Origins_Destinations.Military_APO_FPO_DPO.Positive.OSMBaseMediaMailNotDGAPO;
-import com.logistyx.utilities.AbstractBaseClasses.OSM.Origins_Destinations.Military_APO_FPO_DPO.Positive.OSMBasePriorityMailNotDGAPO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -327,11 +326,11 @@ public class Media_Mail_APO extends OSMBaseMediaMailNotDGAPO {
     }
 
 
-    @DisplayName("EDI - Package Id - '420535349205520220307000006656'")
+    @DisplayName("EDI - Package Id - '9241920220307000007615'")
     @Test
     public void test26() {
 
-        String packageIdFromJson = osmPojoShipments.getShippingUnits().get(0).getForwarderRef();
+        String packageIdFromJson = osmPojoShipments.getShippingUnits().get(0).getForwarderRef().substring(8);
         //    System.out.println("packageIdFromJson = " + packageIdFromJson);
         String packageIdFromEDI = decodedValuesInternational.get(0).replace("\"", "");
         //    System.out.println("packageIdFromEDI = " + packageIdFromEDI);

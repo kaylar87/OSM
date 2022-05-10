@@ -1,7 +1,6 @@
 package com.logistyx.TEST.OSM.Failing_Mandatory_Fields;
 
 import com.logistyx.utilities.AbstractBaseClasses.OSM.Failing_Mandatory_Fields.OSMBaseEmptyForwarderDivisionCode;
-import com.logistyx.utilities.AbstractBaseClasses.OSM.Origins_Destinations.Domestic.Negative.OSMBaseBoundPrintedMatterNotDGFailingInternational;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -23,10 +22,10 @@ public class Empty_ForwarderDivisionCode extends OSMBaseEmptyForwarderDivisionCo
         //    validateResponseShipments.extract().response().prettyPrint();
         String errorMessage1 = validateResponseShipments.extract().response().path("InvalidData[0].ValidationMessages[0]");
         //    System.out.println("errorMessage1 = " + errorMessage1);
-        assertThat(errorMessage1, is(equalTo("Received  - Expected a Forwarder Division Code from the list of supported Forwarder Divisions.")));
+        assertThat(errorMessage1, is(equalTo("Received  - Expected a string of exactly 3 characters long.")));
         String errorMessage2 = validateResponseShipments.extract().response().path("InvalidData[0].ValidationMessages[1]");
         //    System.out.println("errorMessage2 = " + errorMessage2);
-        assertThat(errorMessage2, is(equalTo("Received  - Expected a string of exactly 3 characters long.")));
+        assertThat(errorMessage2, is(equalTo("Received  - Expected a Forwarder Division Code from the list of supported Forwarder Divisions.")));
     }
 
 

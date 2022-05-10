@@ -299,7 +299,7 @@ public class Standard_Mail_Marketing_Parcel_USPS_Track_DG_LQD extends OSMBaseSta
     }
 
 
-    @DisplayName("EDI - Package Id - '420535349270320220307000010376'")
+    @DisplayName("EDI - Package Id - '9241920220307000007615'")
     @Test
     public void test22() {
 

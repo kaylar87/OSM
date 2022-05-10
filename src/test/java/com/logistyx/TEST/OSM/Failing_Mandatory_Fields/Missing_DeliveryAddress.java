@@ -1,7 +1,6 @@
 package com.logistyx.TEST.OSM.Failing_Mandatory_Fields;
 
 import com.logistyx.utilities.AbstractBaseClasses.OSM.Failing_Mandatory_Fields.OSMBaseMissingDeliveryAddress;
-import com.logistyx.utilities.AbstractBaseClasses.OSM.Failing_Mandatory_Fields.OSMBaseMissingDeliveryAddressAddressLine1;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

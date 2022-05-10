@@ -327,15 +327,16 @@ public class Media_Mail_Track_False extends OSMBaseMediaMailTrackFalseNotDG {
     }
 
 
-    @DisplayName("EDI - Package Id - '420535349252120220307000010765'")
+    @DisplayName("EDI - Package Id - '9241920220307000007615'")
     @Test
     public void test24() {
 
-        String packageIdFromJson = osmPojoShipments.getShippingUnits().get(0).getForwarderRef();
+        String packageIdFromJson = osmPojoShipments.getShippingUnits().get(0).getForwarderRef().substring(8);
         //    System.out.println("packageIdFromJson = " + packageIdFromJson);
         String packageIdFromEDI = decodedValuesDomestic.get(0).replace("\"", "");
         //    System.out.println("packageIdFromEDI = " + packageIdFromEDI);
         assertThat(packageIdFromEDI, is(equalTo(packageIdFromJson)));
+
 
     }
 

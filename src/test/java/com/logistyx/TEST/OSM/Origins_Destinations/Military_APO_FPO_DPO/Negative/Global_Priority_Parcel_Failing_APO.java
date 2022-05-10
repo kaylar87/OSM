@@ -1,6 +1,5 @@
 package com.logistyx.TEST.OSM.Origins_Destinations.Military_APO_FPO_DPO.Negative;
 
-import com.logistyx.utilities.AbstractBaseClasses.OSM.Origins_Destinations.International.Negative.OSMBaseGlobalPriorityParcelNotDGFailingDomestic;
 import com.logistyx.utilities.AbstractBaseClasses.OSM.Origins_Destinations.Military_APO_FPO_DPO.Negative.OSMBaseGlobalPriorityParcelNotDGFailingAPO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
