@@ -1,4 +1,4 @@
-package com.logistyx.utilities.AbstractBaseClasses.OSM.Services;
+package com.logistyx.utilities.AbstractBaseClasses.OSM._19239;
 
 
 import com.logistyx.pojo.osm.OSMPojo;
@@ -21,7 +21,7 @@ import java.util.*;
 import static io.restassured.RestAssured.expect;
 import static io.restassured.RestAssured.given;
 
-public abstract class OSMBaseGlobalPriorityNotDG {
+public abstract class OSMBaseFirstClassMailNotDG_19239 {
 
     public static String requestJsonBodyShipments;
     public static RequestSpecification requestSpecShipments;
@@ -40,12 +40,9 @@ public abstract class OSMBaseGlobalPriorityNotDG {
     public static ResponseSpecification responseSpecConveyances;
     public static ValidatableResponse validateResponseConveyances;
     public static OSMPojo osmPojoConveyances;
-    public static String encodedStringFromPostmanConveyancesDomestic;
-    public static String decodedStringConveyancesDomestic;
-    public static byte[] decodedBytesConveyancesDomestic;
-    public static String encodedStringFromPostmanConveyancesInternational;
-    public static String decodedStringConveyancesInternational;
-    public static byte[] decodedBytesConveyancesInternational;
+    public static String encodedStringFromPostmanConveyances;
+    public static String decodedStringConveyances;
+    public static byte[] decodedBytesConveyances;
 
     public static String month;
     public static String day;
@@ -81,10 +78,7 @@ public abstract class OSMBaseGlobalPriorityNotDG {
     public static List decodeArrListDomestic;
     public static List<String> decodedValuesDomestic;
     public static List<String> decodedHeadersDomestic;
-    public static List decodeArrListInternational;
-    public static List<String> decodedValuesInternational;
-    public static List<String> decodedValuesInternational2;
-    public static List<String> decodedHeadersInternational;
+
 
 
     @Test
@@ -93,8 +87,8 @@ public abstract class OSMBaseGlobalPriorityNotDG {
         requestJsonBodyShipments = "{\n" +
                 "    \"ProjectCode\": \"LX_CHICAGO\",\n" +
                 "    \"ForwarderDivisionCode\": \"OSM\",\n" +
-                "    \"ForwarderServiceCode\": \"OSM-GLOBAL-STANDARD\",\n" +
-                "   \"ShipperRef\": \"Shipper Reference\",\n" +
+                "    \"ForwarderServiceCode\": \"OSM-FIRST-CLASS-MAIL\",\n" +
+                "    \"ShipperRef\": \"Shipper Reference\",\n" +
                 "    \"ReceiverRef\": \"Receiver Reference\",\n" +
                 "    \"Addresses\": [\n" +
                 "        {\n" +
@@ -103,15 +97,21 @@ public abstract class OSMBaseGlobalPriorityNotDG {
                 "                {\n" +
                 "                    \"Index\": 1,\n" +
                 "                    \"Value\": \"15 Main St\"\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"Index\": 2,\n" +
+                "                    \"Value\": \"11\"\n" +
                 "                }\n" +
                 "            ],\n" +
-                "            \"PostalCode\": \"0159\",\n" +
-                "            \"LocalityName\": \"OSLO\",\n" +
-                "            \"CountryCode\": \"NO\",\n" +
+                "            \"PostalCode\": \"62001\",\n" +
+                "            \"LocalityName\": \"Edgerton\",\n" +
+                "            \"SubdivisionCode\": \"WI\",\n" +
+                "            \"SubdivisionName\": \"Wisconsin\",\n" +
+                "            \"CountryCode\": \"US\",\n" +
                 "            \"Contacts\": [\n" +
                 "                {\n" +
                 "                    \"Name\": \"LOWE'S COMPANIES, INC.\",\n" +
-                "                    \"EmailAddress\": \"aa\",\n" +
+                "                    \"EmailAddress\": \"\",\n" +
                 "                    \"PhoneNumber\": \"555-555-5555\"\n" +
                 "                }\n" +
                 "            ],\n" +
@@ -148,33 +148,6 @@ public abstract class OSMBaseGlobalPriorityNotDG {
                 "                    \"AddressTypeCode\": \"PICKUP\"\n" +
                 "                }\n" +
                 "            ]\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"Reference\": \"JOHN SILVER\",\n" +
-                "            \"AddressLines\": [\n" +
-                "                {\n" +
-                "                    \"Index\": 1,\n" +
-                "                    \"Value\": \"111 E 21st St\"\n" +
-                "                }\n" +
-                "            ],\n" +
-                "            \"PostalCode\": \"11230\",\n" +
-                "            \"LocalityName\": \"Brooklyn\",\n" +
-                "            \"SubdivisionCode\": \"NY\",\n" +
-                "            \"SubdivisionName\": \"New York\",\n" +
-                "            \"CountryCode\": \"US\",\n" +
-                "            \"Contacts\": [\n" +
-                "                {\n" +
-                "                    \"ContactTypeCode\": \"RETURN\",\n" +
-                "                    \"Name\": \"John@Silver.com\",\n" +
-                "                    \"PhoneNumber\": \"718-000-1111\"\n" +
-                "                }\n" +
-                "            ],\n" +
-                "            \"Residential\": false,\n" +
-                "            \"AddressTypes\": [\n" +
-                "                {\n" +
-                "                    \"AddressTypeCode\": \"RETURN\"\n" +
-                "                }\n" +
-                "            ]\n" +
                 "        }\n" +
                 "    ],\n" +
                 "    \"FreightPayer\": \"SHIPPER\",\n" +
@@ -187,59 +160,26 @@ public abstract class OSMBaseGlobalPriorityNotDG {
                 "            \"DimensionsUnitOfMeasure\": \"IN\",\n" +
                 "            \"VolumeUnitOfMeasure\": \"IN3\",\n" +
                 "            \"PackageType\": \"ZZ\",\n" +
-                "            \"GrossWeight\": 5.86,\n" +
+                "            \"GrossWeight\": 0.86,\n" +
                 "            \"GrossWeightUnitOfMeasure\": \"LB\",\n" +
                 "            \"Content\": \"Widget. Widget\",\n" +
                 "            \"Remark\": \"Does not apply on materials regulated by the U.S. Department of Transportation as hazardous and required tobear a Hazard Class or Hazard Division label. For classes applicable to such hazardous materials, see provisionselsewhere inthis Classification.\",\n" +
                 "            \"NumberOfShippingUnitItems\": 1,\n" +
                 "            \"ShippingUnitItems\": [\n" +
                 "                {\n" +
+                "                    \"ForwarderRef\": 9999999999,\n" +
                 "                    \"Value\": 1.0,\n" +
                 "                    \"ValueCurrencyCode\": \"USD\",\n" +
                 "                    \"Quantity\": 2,\n" +
                 "                    \"QuantityUnitOfMeasure\": \"PCS\",\n" +
                 "                    \"Weight\": 1.33,\n" +
                 "                    \"WeightUnitOfMeasure\": \"LB\",\n" +
-                "                    \"Description\": \"COLD WEATHER KIT A/C HSB1\",\n" +
+                "                    \"Description\": \"COLD WEATHER KIT A/C HSB\",\n" +
                 "                    \"CountryOfOrigin\": \"US\",\n" +
                 "                    \"HarmonisedSystemCode\": \"8516808000\",\n" +
                 "                    \"ProductCode\": \"G0062120\",\n" +
                 "                    \"Fragile\": false,\n" +
-                "                    \"Liquids\": false,\n" +
-                "                    \"AdditionalValues\": [\n" +
-                "                        {\n" +
-                "                            \"AdditionalValueKey\": \"CATEGORY_OF_GOODS\",\n" +
-                "                            \"Value\": \"6\"\n" +
-                "                        },\n" +
-                "                        {\n" +
-                "                            \"AdditionalValueKey\": \"COMMENTS\",\n" +
-                "                            \"Value\": \"Something\"\n" +
-                "                        }\n" +
-                "                    ]\n" +
-                "                },\n" +
-                "                {\n" +
-                "                    \"Value\": 2.25,\n" +
-                "                    \"ValueCurrencyCode\": \"USD\",\n" +
-                "                    \"Quantity\": 2,\n" +
-                "                    \"QuantityUnitOfMeasure\": \"PCS\",\n" +
-                "                    \"Weight\": 1.33,\n" +
-                "                    \"WeightUnitOfMeasure\": \"LB\",\n" +
-                "                    \"Description\": \"COLD WEATHER KIT A/C HSB2\",\n" +
-                "                    \"CountryOfOrigin\": \"US\",\n" +
-                "                    \"HarmonisedSystemCode\": \"8516808000\",\n" +
-                "                    \"ProductCode\": \"G0062120\",\n" +
-                "                    \"Fragile\": false,\n" +
-                "                    \"Liquids\": false,\n" +
-                "                    \"AdditionalValues\": [\n" +
-                "                        {\n" +
-                "                            \"AdditionalValueKey\": \"CATEGORY_OF_GOODS\",\n" +
-                "                            \"Value\": \"6\"\n" +
-                "                        },\n" +
-                "                        {\n" +
-                "                            \"AdditionalValueKey\": \"COMMENTS\",\n" +
-                "                            \"Value\": \"Something\"\n" +
-                "                        }\n" +
-                "                    ]\n" +
+                "                    \"Liquids\": false\n" +
                 "                }\n" +
                 "            ]\n" +
                 "        }\n" +
@@ -263,7 +203,7 @@ public abstract class OSMBaseGlobalPriorityNotDG {
                 .then()
                 .spec(responseSpecShipments);
         osmPojoShipments = validateResponseShipments.extract().as(OSMPojo.class);
-        encodedStringFromPostmanShipments = osmPojoShipments.getDocuments().get(0).getContent();
+        encodedStringFromPostmanShipments = osmPojoShipments.getDocuments().get(1).getContent();
         decodedBytesShipments = Base64.getDecoder().decode(encodedStringFromPostmanShipments);
         decodedStringShipments = new String(decodedBytesShipments);
 
@@ -308,12 +248,9 @@ public abstract class OSMBaseGlobalPriorityNotDG {
                 .then()
                 .spec(responseSpecConveyances);
         osmPojoConveyances = validateResponseConveyances.extract().as(OSMPojo.class);
-        encodedStringFromPostmanConveyancesDomestic = osmPojoConveyances.getDocuments().get(0).getContent();
-        decodedBytesConveyancesDomestic = Base64.getDecoder().decode(encodedStringFromPostmanConveyancesDomestic);
-        decodedStringConveyancesDomestic = new String(decodedBytesConveyancesDomestic);
-        encodedStringFromPostmanConveyancesInternational = osmPojoConveyances.getDocuments().get(1).getContent();
-        decodedBytesConveyancesInternational = Base64.getDecoder().decode(encodedStringFromPostmanConveyancesInternational);
-        decodedStringConveyancesInternational = new String(decodedBytesConveyancesInternational);
+        encodedStringFromPostmanConveyances = osmPojoConveyances.getDocuments().get(0).getContent();
+        decodedBytesConveyances = Base64.getDecoder().decode(encodedStringFromPostmanConveyances);
+        decodedStringConveyances = new String(decodedBytesConveyances);
 
         DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         Date date = new Date();
@@ -483,45 +420,20 @@ public abstract class OSMBaseGlobalPriorityNotDG {
             }
         }
 
-        String[] decodeArrDomestic = decodedStringConveyancesDomestic.split("\r\n");
+        String[] decodeArrDomestic = decodedStringConveyances.split("\r\n");
         decodeArrListDomestic = Arrays.asList(decodeArrDomestic);
-        if (decodeArrListDomestic.size() == 2) {
-            Object a = decodeArrListDomestic.get(0);
-            decodedHeadersDomestic = new ArrayList<>();
-            //    System.out.println("a = " + a);
-            for (String s : a.toString().split("\",\"")) {
-                decodedHeadersDomestic.add(s);
-            }
-            Object b = decodeArrListDomestic.get(1);
-            decodedValuesDomestic = new ArrayList<>();
-            //    System.out.println("b = " + b);
-            for (String s : b.toString().split("\",\"")) {
-                decodedValuesDomestic.add(s);
-            }
 
+        Object a = decodeArrListDomestic.get(0);
+        decodedHeadersDomestic = new ArrayList<>();
+        //    System.out.println("a = " + a);
+        for (String s : a.toString().split("\",\"")) {
+            decodedHeadersDomestic.add(s);
         }
-
-        String[] decodeArrInternational = decodedStringConveyancesInternational.split("\r\n");
-        decodeArrListInternational = Arrays.asList(decodeArrInternational);
-        if (decodeArrListInternational.size() == (osmPojoShipments.getShippingUnits().get(0).getShippingUnitItems().size() + 1)) {
-            Object c = decodeArrListInternational.get(0);
-            decodedHeadersInternational = new ArrayList<>();
-            //    System.out.println("c = " + c);
-            for (String s : c.toString().split("\",\"")) {
-                decodedHeadersInternational.add(s);
-            }
-            Object d = decodeArrListInternational.get(1);
-            decodedValuesInternational = new ArrayList<>();
-            //    System.out.println("d = " + d);
-            for (String s : d.toString().split("\",\"")) {
-                decodedValuesInternational.add(s);
-            }
-            Object e = decodeArrListInternational.get(2);
-            decodedValuesInternational2 = new ArrayList<>();
-            //    System.out.println("e = " + e);
-            for (String s : e.toString().split("\",\"")) {
-                decodedValuesInternational2.add(s);
-            }
+        Object b = decodeArrListDomestic.get(1);
+        decodedValuesDomestic = new ArrayList<>();
+        //    System.out.println("b = " + b);
+        for (String s : b.toString().split("\",\"")) {
+            decodedValuesDomestic.add(s);
         }
 
 

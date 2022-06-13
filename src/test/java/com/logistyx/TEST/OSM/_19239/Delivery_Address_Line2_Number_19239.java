@@ -1,27 +1,26 @@
-package com.logistyx.utilities.AbstractBaseClasses.OSM.Services;
-
+package com.logistyx.TEST.OSM._19239;
 
 import com.logistyx.pojo.osm.OSMPojo;
 import com.logistyx.utilities.Environment;
-import com.logistyx.utilities.ExcelUtil;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 import java.util.*;
 
 import static io.restassured.RestAssured.expect;
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
-public abstract class OSMBaseFirstClassMailNotDG {
+
+public class Delivery_Address_Line2_Number_19239 {
 
     public static String requestJsonBodyShipments;
     public static RequestSpecification requestSpecShipments;
@@ -79,15 +78,15 @@ public abstract class OSMBaseFirstClassMailNotDG {
     public static List<String> decodedValuesDomestic;
     public static List<String> decodedHeadersDomestic;
 
+    @ParameterizedTest
+    @CsvFileSource(resources = "/Domestic.csv")
+    public void test1(String ForwarderServiceCode) {
 
-
-    @Test
-    public static void shipmentsLabel() {
 
         requestJsonBodyShipments = "{\n" +
                 "    \"ProjectCode\": \"LX_CHICAGO\",\n" +
                 "    \"ForwarderDivisionCode\": \"OSM\",\n" +
-                "    \"ForwarderServiceCode\": \"OSM-FIRST-CLASS-MAIL\",\n" +
+                "    \"ForwarderServiceCode\": \"" + ForwarderServiceCode + "\",\n" +
                 "    \"ShipperRef\": \"Shipper Reference\",\n" +
                 "    \"ReceiverRef\": \"Receiver Reference\",\n" +
                 "    \"Addresses\": [\n" +
@@ -97,6 +96,10 @@ public abstract class OSMBaseFirstClassMailNotDG {
                 "                {\n" +
                 "                    \"Index\": 1,\n" +
                 "                    \"Value\": \"15 Main St\"\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"Index\": 2,\n" +
+                "                    \"Value\": \"11\"\n" +
                 "                }\n" +
                 "            ],\n" +
                 "            \"PostalCode\": \"62001\",\n" +
@@ -203,27 +206,6 @@ public abstract class OSMBaseFirstClassMailNotDG {
         decodedBytesShipments = Base64.getDecoder().decode(encodedStringFromPostmanShipments);
         decodedStringShipments = new String(decodedBytesShipments);
 
-        checkString = osmPojoShipments.getShippingUnits().get(0).getForwarderRef().substring(8, 29);
-        int evenSum = 0;
-        int oddSum = 0;
-        if (checkString.length() != 21) {
-            throw new IllegalArgumentException("Data length must be 17 to calculate SSCC-18 check digit.");
-        } else {
-            for (int i = 0; i < checkString.length(); i++) {
-                if ((i + 1) % 2 == 0) {
-                    evenSum += Integer.parseInt(String.valueOf(checkString.charAt(i)));
-                } else {
-                    oddSum += Integer.parseInt(String.valueOf(checkString.charAt(i)));
-                }
-            }
-//            if checkdigit is 10 use 0, otherwise use checkdigit dynamic value
-            if ((10 - ((evenSum + (oddSum * 3)) % 10)) == 10) {
-                checkDigit = 0;
-            } else {
-                checkDigit = 10 - ((evenSum + (oddSum * 3)) % 10);
-            }
-        }
-
         int shipmentIdFromShipmentsRequest = osmPojoShipments.getShipmentId();
         JSONObject objectShipmentIdFromShipmentsRequest = new JSONObject();
         JSONArray array = new JSONArray();
@@ -248,174 +230,6 @@ public abstract class OSMBaseFirstClassMailNotDG {
         decodedBytesConveyances = Base64.getDecoder().decode(encodedStringFromPostmanConveyances);
         decodedStringConveyances = new String(decodedBytesConveyances);
 
-        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-        Date date = new Date();
-        date1 = dateFormat.format(date);
-        month = date1.substring(0, 2);
-        day = date1.substring(3, 5);
-        year = Integer.parseInt(date1.substring(6, 10));
-        century = (year / 100) + 1;
-        hour = Integer.parseInt(date1.substring(11, 13)) + 5;
-        minute = date1.substring(14, 16);
-        second = date1.substring(17, 19);
-
-        dateTimeUTC = OffsetDateTime.now(ZoneOffset.UTC);
-        //    System.out.println(dateTimeUTC);
-        monthUTC = date1.substring(0, 2);
-        dayUTC = date1.substring(3, 5);
-        yearUTC = Integer.parseInt(date1.substring(6, 10));
-        centuryUTC = (yearUTC / 100) + 1;
-        hourUTC = Integer.parseInt(date1.substring(11, 13)) + 5;
-        minuteUTC = date1.substring(14, 16);
-        secondUTC = date1.substring(17, 19);
-
-        currentDateTimeUTC = yearUTC + "-" + monthUTC + "-" + dayUTC + "T" + hourUTC + ":" + minuteUTC + ":" + secondUTC + "Z";
-        currentDateTime = year + "-" + month + "-" + day + "T" + hour + ":" + minute + ":" + second + "Z";
-
-        carrierServiceLValueFromJsonMap = new LinkedHashMap<>();
-        carrierServiceFromJson = osmPojoShipments.getForwarderServiceCode();
-        switch (carrierServiceFromJson) {
-            case "OSM-FIRST-CLASS-MAIL":
-                carrierServiceLValueFromJsonMap.put("OSM-FIRST-CLASS-MAIL", "F");
-                break;
-            case "OSM-PRIORITY-MAIL":
-                carrierServiceLValueFromJsonMap.put("OSM-PRIORITY-MAIL", "P");
-                break;
-        }
-
-        carrierServiceE1ValueFromJsonMap = new LinkedHashMap<>();
-        carrierServiceFromJson = osmPojoShipments.getForwarderServiceCode();
-        switch (carrierServiceFromJson) {
-            case "OSM-FIRST-CLASS-MAIL":
-                carrierServiceE1ValueFromJsonMap.put("OSM-FIRST-CLASS-MAIL", "FIRST-CLASS PKG");
-                break;
-            case "OSM-PRIORITY-MAIL":
-                carrierServiceE1ValueFromJsonMap.put("OSM-PRIORITY-MAIL", "PRIORITY MAIL");
-                break;
-            case "OSM-BP-MATTER":
-                carrierServiceE1ValueFromJsonMap.put("OSM-BP-MATTER", "PRSRT BPM");
-                break;
-            case "OSM-MEDIA-MAIL":
-                carrierServiceE1ValueFromJsonMap.put("OSM-MEDIA-MAIL", "PRSRT MEDIA MAIL");
-                break;
-            case "OSM-PARCEL-SELECT":
-                carrierServiceE1ValueFromJsonMap.put("OSM-PARCEL-SELECT", "PARCEL SELECT");
-                break;
-            case "OSM-STD-MAIL-MP":
-                carrierServiceE1ValueFromJsonMap.put("OSM-STD-MAIL-MP", "PRSRT STD");
-                break;
-            case "OSM-PARCEL-SELECT-LW":
-                carrierServiceE1ValueFromJsonMap.put("OSM-PARCEL-SELECT-LW", "PS LIGHTWEIGHT");
-                break;
-        }
-
-        carrierServiceE2ValueFromJsonMap = new LinkedHashMap<>();
-        carrierServiceFromJson = osmPojoShipments.getForwarderServiceCode();
-        switch (carrierServiceFromJson) {
-            case "OSM-FIRST-CLASS-MAIL":
-                carrierServiceE2ValueFromJsonMap.put("OSM-FIRST-CLASS-MAIL", "U.S POSTAGE PAID");
-                break;
-            case "OSM-PRIORITY-MAIL":
-                carrierServiceE2ValueFromJsonMap.put("OSM-PRIORITY-MAIL", "U.S POSTAGE PAID");
-                break;
-            case "OSM-BP-MATTER":
-                carrierServiceE2ValueFromJsonMap.put("OSM-BP-MATTER", "U.S POSTAGE AND FEES PAID");
-                break;
-            case "OSM-MEDIA-MAIL":
-                carrierServiceE2ValueFromJsonMap.put("OSM-MEDIA-MAIL", "U.S POSTAGE PAID");
-                break;
-            case "OSM-PARCEL-SELECT":
-                carrierServiceE2ValueFromJsonMap.put("OSM-PARCEL-SELECT", "U.S POSTAGE AND FEES PAID");
-                break;
-            case "OSM-STD-MAIL-MP":
-                carrierServiceE2ValueFromJsonMap.put("OSM-STD-MAIL-MP", "U.S POSTAGE PAID");
-                break;
-            case "OSM-PARCEL-SELECT-LW":
-                carrierServiceE2ValueFromJsonMap.put("OSM-PARCEL-SELECT-LW", "U.S POSTAGE AND FEES PAID");
-                break;
-        }
-
-        carrierServiceMCValueFromJsonMap = new LinkedHashMap<>();
-        carrierServiceFromJson = osmPojoShipments.getForwarderServiceCode();
-        switch (carrierServiceFromJson) {
-            case "OSM-FIRST-CLASS-MAIL":
-                carrierServiceMCValueFromJsonMap.put("OSM-FIRST-CLASS-MAIL", "FC");
-                break;
-            case "OSM-PRIORITY-MAIL":
-                carrierServiceMCValueFromJsonMap.put("OSM-PRIORITY-MAIL", "PM");
-                break;
-            case "OSM-BP-MATTER":
-                carrierServiceMCValueFromJsonMap.put("OSM-BP-MATTER", "BP");
-                break;
-            case "OSM-MEDIA-MAIL":
-                carrierServiceMCValueFromJsonMap.put("OSM-MEDIA-MAIL", "MM");
-                break;
-            case "OSM-PARCEL-SELECT":
-                carrierServiceMCValueFromJsonMap.put("OSM-PARCEL-SELECT", "PS");
-                break;
-            case "OSM-STD-MAIL-MP":
-                carrierServiceMCValueFromJsonMap.put("OSM-STD-MAIL-MP", "MP");
-                break;
-            case "OSM-PARCEL-SELECT-LW":
-                carrierServiceMCValueFromJsonMap.put("OSM-PARCEL-SELECT-LW", "LW");
-                break;
-        }
-
-        carrierServiceSTCValueFromJsonMap = new LinkedHashMap<>();
-        carrierServiceFromJson = osmPojoShipments.getForwarderServiceCode();
-        switch (carrierServiceFromJson) {
-            case "OSM-FIRST-CLASS-MAIL":
-                carrierServiceSTCValueFromJsonMap.put("OSM-FIRST-CLASS-MAIL", "001");
-                break;
-            case "OSM-PRIORITY-MAIL":
-                carrierServiceSTCValueFromJsonMap.put("OSM-PRIORITY-MAIL", "055");
-                break;
-            case "OSM-BP-MATTER":
-                carrierServiceSTCValueFromJsonMap.put("OSM-BP-MATTER", "419");
-                break;
-            case "OSM-MEDIA-MAIL":
-                carrierServiceSTCValueFromJsonMap.put("OSM-MEDIA-MAIL", "521");
-                break;
-            case "OSM-PARCEL-SELECT":
-                carrierServiceSTCValueFromJsonMap.put("OSM-PARCEL-SELECT", "612");
-                break;
-            case "OSM-STD-MAIL-MP":
-                carrierServiceSTCValueFromJsonMap.put("OSM-STD-MAIL-MP", "703");
-                break;
-            case "OSM-PARCEL-SELECT-LW":
-                carrierServiceSTCValueFromJsonMap.put("OSM-PARCEL-SELECT-LW", "748");
-                break;
-            case "OSM-GLOBAL-STANDARD":
-                carrierServiceSTCValueFromJsonMap.put("OSM-GLOBAL-STANDARD", "001");
-                break;
-            case "OSM-GLOBAL-PRIO":
-                carrierServiceSTCValueFromJsonMap.put("OSM-GLOBAL-PRIO", "002");
-                break;
-            case "OSM-GLOBAL-PRIO-EPKT":
-                carrierServiceSTCValueFromJsonMap.put("OSM-GLOBAL-PRIO-EPKT", "003");
-                break;
-            case "OSM-GLOBAL-PRIO-PRCL":
-                carrierServiceSTCValueFromJsonMap.put("OSM-GLOBAL-PRIO-PRCL", "004");
-                break;
-        }
-
-        ExcelUtil SortCodesFile = new ExcelUtil("src/test/resources/OSM_SortCodes.xlsx", "OSM_SortCodes");
-        List<Map<String, String>> dataList = SortCodesFile.getDataList();
-        Map<String, String> sortCodesMap;
-        double deliveryZipCodeFromJson = Double.parseDouble(osmPojoShipments.getDeliveryAddress().getPostalCode());
-        //    System.out.println("deliveryZipCodeFromJson = " + deliveryZipCodeFromJson);
-        String deliveryZipCodeFromJsonConverted = String.valueOf(deliveryZipCodeFromJson);
-        //    System.out.println("deliveryZipCodeFromJsonConverted = " + deliveryZipCodeFromJsonConverted);
-        for (Map<String, String> rowmap : dataList) {
-            if (rowmap.containsValue(deliveryZipCodeFromJsonConverted)) {
-                sortCodesMap = rowmap;
-                sortCode1 = sortCodesMap.get("Sort Code 1");
-                sortCode2 = sortCodesMap.get("Sort Code 2");
-                sortCode4 = sortCodesMap.get("Sort Code 4");
-                //    System.out.println("sortCode1 = " + sortCode1);
-            }
-        }
-
         String[] decodeArrDomestic = decodedStringConveyances.split("\r\n");
         decodeArrListDomestic = Arrays.asList(decodeArrDomestic);
 
@@ -432,44 +246,16 @@ public abstract class OSMBaseFirstClassMailNotDG {
             decodedValuesDomestic.add(s);
         }
 
+        System.out.println("requestJsonBodyShipments = " + requestJsonBodyShipments);
+        validateResponseShipments.extract().response().prettyPrint();
 
-//        carrierServiceE1ValueFromJsonMap = new LinkedHashMap<>();
-//        carrierServiceFromJson = osmPojoShipments.getForwarderServiceCode();
-//        switch (carrierServiceFromJson) {
-//            case "OSM-FIRST-CLASS-MAIL":
-//                carrierServiceE1ValueFromJsonMap.put("OSM-FIRST-CLASS-MAIL", "FIRST-CLASS PKG");
-//                break;
-//            case "OSM-PRIORITY-MAIL":
-//                carrierServiceE1ValueFromJsonMap.put("OSM-PRIORITY-MAIL", "PRIORITY MAIL");
-//                break;
-//            case "OSM-BP-MATTER":
-//                carrierServiceE1ValueFromJsonMap.put("OSM-BP-MATTER", "PRSRT BPM");
-//                break;
-//            case "OSM-MEDIA-MAIL":
-//                carrierServiceE1ValueFromJsonMap.put("OSM-MEDIA-MAIL", "PRSRT MEDIA MAIL");
-//                break;
-//            case "OSM-PARCEL-SELECT":
-//                carrierServiceE1ValueFromJsonMap.put("OSM-PARCEL-SELECT", "PARCEL SELECT");
-//                break;
-//            case "OSM-STD-MAIL-MP":
-//                carrierServiceE1ValueFromJsonMap.put("OSM-STD-MAIL-MP", "PRSRT STD");
-//                break;
-//            case "OSM-PARCEL-SELECT-LW":
-//                carrierServiceE1ValueFromJsonMap.put("OSM-PARCEL-SELECT-LW", "PS LIGHTWEIGHT");
-//                break;
-//            case "OSM-GLOBAL-STANDARD":
-//                carrierServiceE1ValueFromJsonMap.put("OSM-GLOBAL-STANDARD", "CHEP EURO");
-//                break;
-//            case "OSM-GLOBAL-PRIO":
-//                carrierServiceE1ValueFromJsonMap.put("OSM-GLOBAL-PRIO", "DUSS");
-//                break;
-//            case "OSM-GLOBAL-PRIO-EPKT":
-//                carrierServiceE1ValueFromJsonMap.put("OSM-GLOBAL-PRIO-EPKT", "COLLI");
-//                break;
-//            case "OSM-GLOBAL-PRIO-PRCL":
-//                carrierServiceE1ValueFromJsonMap.put("OSM-GLOBAL-PRIO-PRCL", "PAK");
-//                break;
-//
-//        }
+        if (osmPojoShipments.getDeliveryAddress().getAddressLines().size() == 2) {
+            String address2FromJson = osmPojoShipments.getDeliveryAddress().getAddressLines().get(1).getValue();
+            //    System.out.println("address2FromJson = " + address2FromJson);
+            String address2FromEDI = decodedValuesDomestic.get(4);
+            //    System.out.println("address2FromEDI = " + address2FromEDI);
+            assertThat(address2FromEDI, is(equalTo("#" + address2FromJson)));
+        }
+
     }
 }

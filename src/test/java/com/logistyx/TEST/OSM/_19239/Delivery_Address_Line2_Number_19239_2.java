@@ -1,5 +1,4 @@
-package com.logistyx.utilities.AbstractBaseClasses.OSM.Weight_Cases.Positive;
-
+package com.logistyx.TEST.OSM._19239;
 
 import com.logistyx.pojo.osm.OSMPojo;
 import com.logistyx.utilities.Environment;
@@ -7,17 +6,22 @@ import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import org.junit.jupiter.api.Test;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 
 import java.time.OffsetDateTime;
-import java.util.Base64;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static io.restassured.RestAssured.expect;
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 
-public abstract class OSMBaseBoundPrintedMatterNotDG15lbs {
+
+public class Delivery_Address_Line2_Number_19239_2 {
 
     public static String requestJsonBodyShipments;
     public static RequestSpecification requestSpecShipments;
@@ -75,15 +79,15 @@ public abstract class OSMBaseBoundPrintedMatterNotDG15lbs {
     public static List<String> decodedValuesDomestic;
     public static List<String> decodedHeadersDomestic;
 
+    @ParameterizedTest
+    @CsvFileSource(resources = "/Domestic2.csv")
+    public void test1(String ForwarderServiceCode) {
 
-
-    @Test
-    public static void shipmentsLabel() {
 
         requestJsonBodyShipments = "{\n" +
                 "    \"ProjectCode\": \"LX_CHICAGO\",\n" +
                 "    \"ForwarderDivisionCode\": \"OSM\",\n" +
-                "    \"ForwarderServiceCode\": \"OSM-BP-MATTER\",\n" +
+                "    \"ForwarderServiceCode\": \"" + ForwarderServiceCode + "\",\n" +
                 "    \"ShipperRef\": \"Shipper Reference\",\n" +
                 "    \"ReceiverRef\": \"Receiver Reference\",\n" +
                 "    \"Addresses\": [\n" +
@@ -93,9 +97,13 @@ public abstract class OSMBaseBoundPrintedMatterNotDG15lbs {
                 "                {\n" +
                 "                    \"Index\": 1,\n" +
                 "                    \"Value\": \"15 Main St\"\n" +
+                "                },\n" +
+                "                {\n" +
+                "                    \"Index\": 2,\n" +
+                "                    \"Value\": \"11\"\n" +
                 "                }\n" +
                 "            ],\n" +
-                "            \"PostalCode\": \"53534\",\n" +
+                "            \"PostalCode\": \"62001\",\n" +
                 "            \"LocalityName\": \"Edgerton\",\n" +
                 "            \"SubdivisionCode\": \"WI\",\n" +
                 "            \"SubdivisionName\": \"Wisconsin\",\n" +
@@ -152,7 +160,7 @@ public abstract class OSMBaseBoundPrintedMatterNotDG15lbs {
                 "            \"DimensionsUnitOfMeasure\": \"IN\",\n" +
                 "            \"VolumeUnitOfMeasure\": \"IN3\",\n" +
                 "            \"PackageType\": \"ZZ\",\n" +
-                "            \"GrossWeight\": 15.00,\n" +
+                "            \"GrossWeight\": 2.00,\n" +
                 "            \"GrossWeightUnitOfMeasure\": \"LB\",\n" +
                 "            \"Content\": \"Widget. Widget\",\n" +
                 "            \"Remark\": \"Does not apply on materials regulated by the U.S. Department of Transportation as hazardous and required tobear a Hazard Class or Hazard Division label. For classes applicable to such hazardous materials, see provisionselsewhere inthis Classification.\",\n" +
@@ -198,6 +206,57 @@ public abstract class OSMBaseBoundPrintedMatterNotDG15lbs {
         encodedStringFromPostmanShipments = osmPojoShipments.getDocuments().get(1).getContent();
         decodedBytesShipments = Base64.getDecoder().decode(encodedStringFromPostmanShipments);
         decodedStringShipments = new String(decodedBytesShipments);
+
+        int shipmentIdFromShipmentsRequest = osmPojoShipments.getShipmentId();
+        JSONObject objectShipmentIdFromShipmentsRequest = new JSONObject();
+        JSONArray array = new JSONArray();
+        objectShipmentIdFromShipmentsRequest.put("Shipments", array);
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.put("ShipmentId", shipmentIdFromShipmentsRequest);
+        array.add(map);
+        requestSpecConveyances = given().header("Shipper-Code", "LBI")
+                .accept(ContentType.JSON)
+                .contentType(ContentType.JSON)
+                .body(objectShipmentIdFromShipmentsRequest);
+        responseSpecConveyances = expect().statusCode(200)
+                .and()
+                .contentType(ContentType.JSON);
+        validateResponseConveyances = given().spec(requestSpecConveyances)
+                .when()
+                .post(Environment.BASE_URL + "/conveyances/confirm")
+                .then()
+                .spec(responseSpecConveyances);
+        osmPojoConveyances = validateResponseConveyances.extract().as(OSMPojo.class);
+        encodedStringFromPostmanConveyances = osmPojoConveyances.getDocuments().get(0).getContent();
+        decodedBytesConveyances = Base64.getDecoder().decode(encodedStringFromPostmanConveyances);
+        decodedStringConveyances = new String(decodedBytesConveyances);
+
+        String[] decodeArrDomestic = decodedStringConveyances.split("\r\n");
+        decodeArrListDomestic = Arrays.asList(decodeArrDomestic);
+
+        Object a = decodeArrListDomestic.get(0);
+        decodedHeadersDomestic = new ArrayList<>();
+        //    System.out.println("a = " + a);
+        for (String s : a.toString().split("\",\"")) {
+            decodedHeadersDomestic.add(s);
+        }
+        Object b = decodeArrListDomestic.get(1);
+        decodedValuesDomestic = new ArrayList<>();
+        //    System.out.println("b = " + b);
+        for (String s : b.toString().split("\",\"")) {
+            decodedValuesDomestic.add(s);
+        }
+
+        System.out.println("requestJsonBodyShipments = " + requestJsonBodyShipments);
+        validateResponseShipments.extract().response().prettyPrint();
+
+        if (osmPojoShipments.getDeliveryAddress().getAddressLines().size() == 2) {
+            String address2FromJson = osmPojoShipments.getDeliveryAddress().getAddressLines().get(1).getValue();
+            //    System.out.println("address2FromJson = " + address2FromJson);
+            String address2FromEDI = decodedValuesDomestic.get(4);
+            //    System.out.println("address2FromEDI = " + address2FromEDI);
+            assertThat(address2FromEDI, is(equalTo("#" + address2FromJson)));
+        }
 
     }
 }

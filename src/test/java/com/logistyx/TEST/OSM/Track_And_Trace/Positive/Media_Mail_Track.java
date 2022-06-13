@@ -285,13 +285,13 @@ public class Media_Mail_Track extends OSMBaseMediaMailTrackNotDG  {
     }
 
 
-    @DisplayName("ZPL Carrier service I - 'USPS TRACKING #'")
+    @DisplayName("ZPL Carrier service I - 'USPS TRACKING # eVS'")
     @Test
     public void test21() {
 
-        String carrierServiceIHardcoded = "USPS TRACKING #";
+        String carrierServiceIHardcoded = "USPS TRACKING # eVS";
         //    System.out.println("carrierServiceIHardcoded = " + carrierServiceIHardcoded);
-        int carrierServiceIFromLabelStart = decodedStringShipments.indexOf("^FT286,898^A0N,33,33^FD") + 23;
+        int carrierServiceIFromLabelStart = decodedStringShipments.indexOf("^FT257,898^A0N,33,33^FD") + 23;
         String carrierServiceIFromLabel = decodedStringShipments.substring(carrierServiceIFromLabelStart, carrierServiceIFromLabelStart + carrierServiceIHardcoded.length());
         //    System.out.println("carrierServiceIFromLabel = " + carrierServiceIFromLabel);
         assertThat(carrierServiceIHardcoded, is(equalTo(carrierServiceIFromLabel)));

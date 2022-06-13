@@ -51,7 +51,7 @@ public class First_Class_Mail extends OSMBaseFirstClassMailNotDG {
     public void test4() {
 
         //    System.out.println("sortCode1 = " + sortCode1);
-        int carrierServiceAFromLabelStart = decodedStringShipments.indexOf("^FT516,353^A0N,43,74^FD") + 23;
+        int carrierServiceAFromLabelStart = decodedStringShipments.indexOf("^FT504,353^A0N,43,74^FD") + 23;
         String carrierServiceAFromLabel = decodedStringShipments.substring(carrierServiceAFromLabelStart, carrierServiceAFromLabelStart + sortCode1.length());
         //    System.out.println("carrierServiceAFromLabel = " + carrierServiceAFromLabel);
         assertThat(sortCode1, is(equalTo(carrierServiceAFromLabel)));
@@ -283,13 +283,13 @@ public class First_Class_Mail extends OSMBaseFirstClassMailNotDG {
     }
 
 
-    @DisplayName("ZPL Carrier service I - 'USPS TRACKING #'")
+    @DisplayName("ZPL Carrier service I - 'USPS TRACKING # eVS'")
     @Test
     public void test21() {
 
-        String carrierServiceIHardcoded = "USPS TRACKING #";
+        String carrierServiceIHardcoded = "USPS TRACKING # eVS";
         //    System.out.println("carrierServiceIHardcoded = " + carrierServiceIHardcoded);
-        int carrierServiceIFromLabelStart = decodedStringShipments.indexOf("^FT286,898^A0N,33,33^FD") + 23;
+        int carrierServiceIFromLabelStart = decodedStringShipments.indexOf("^FT257,898^A0N,33,33^FD") + 23;
         String carrierServiceIFromLabel = decodedStringShipments.substring(carrierServiceIFromLabelStart, carrierServiceIFromLabelStart + carrierServiceIHardcoded.length());
         //    System.out.println("carrierServiceIFromLabel = " + carrierServiceIFromLabel);
         assertThat(carrierServiceIHardcoded, is(equalTo(carrierServiceIFromLabel)));

@@ -205,7 +205,7 @@ public abstract class OSMBasePriorityMailTrackFalseNotDG {
                 .then()
                 .spec(responseSpecShipments);
         osmPojoShipments = validateResponseShipments.extract().as(OSMPojo.class);
-        encodedStringFromPostmanShipments = osmPojoShipments.getDocuments().get(0).getContent();
+        encodedStringFromPostmanShipments = osmPojoShipments.getDocuments().get(1).getContent();
         decodedBytesShipments = Base64.getDecoder().decode(encodedStringFromPostmanShipments);
         decodedStringShipments = new String(decodedBytesShipments);
 

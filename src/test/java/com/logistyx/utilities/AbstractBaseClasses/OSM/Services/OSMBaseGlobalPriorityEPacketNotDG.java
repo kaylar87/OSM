@@ -112,7 +112,7 @@ public abstract class OSMBaseGlobalPriorityEPacketNotDG {
                 "            \"Contacts\": [\n" +
                 "                {\n" +
                 "                    \"Name\": \"LOWE'S COMPANIES, INC.\",\n" +
-                "                    \"EmailAddress\": \"\",\n" +
+                "                    \"EmailAddress\": \"aa\",\n" +
                 "                    \"PhoneNumber\": \"555-555-5555\"\n" +
                 "                }\n" +
                 "            ],\n" +
