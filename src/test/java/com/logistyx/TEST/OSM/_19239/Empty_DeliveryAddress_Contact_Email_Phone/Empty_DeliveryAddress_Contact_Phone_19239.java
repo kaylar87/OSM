@@ -1,4 +1,4 @@
-package com.logistyx.TEST.OSM._19239;
+package com.logistyx.TEST.OSM._19239.Empty_DeliveryAddress_Contact_Email_Phone;
 
 import com.logistyx.pojo.osm.OSMPojo;
 import com.logistyx.utilities.Environment;
@@ -18,7 +18,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-public class Empty_DeliveryAddress_Contact_Email_19239 {
+public class Empty_DeliveryAddress_Contact_Phone_19239 {
 
     public static String requestJsonBodyShipments;
     public static RequestSpecification requestSpecShipments;
@@ -103,8 +103,8 @@ public class Empty_DeliveryAddress_Contact_Email_19239 {
                 "            \"Contacts\": [\n" +
                 "                {\n" +
                 "                    \"Name\": \"LOWE'S COMPANIES, INC.\",\n" +
-                "                    \"EmailAddress\": \"\",\n" +
-                "                    \"PhoneNumber\": \"555-555-5555\"\n" +
+                "                    \"EmailAddress\": \"aa\",\n" +
+                "                    \"PhoneNumber\": \"\"\n" +
                 "                }\n" +
                 "            ],\n" +
                 "            \"Residential\": false,\n" +
@@ -260,11 +260,9 @@ public class Empty_DeliveryAddress_Contact_Email_19239 {
         //    validateResponseShipments.extract().response().prettyPrint();
         String errorMessage1 = validateResponseShipments.extract().response().path("InvalidData[0].ValidationMessages[0]");
         //    System.out.println("errorMessage1 = " + errorMessage1);
-
         assertThat(errorMessage1, containsString("requires delivery contact's phone number and email address."));
         System.out.println("requestJsonBodyShipments = " + requestJsonBodyShipments);
         validateResponseShipments.extract().response().prettyPrint();
 
     }
 }
-

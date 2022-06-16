@@ -83,7 +83,7 @@ public class ShippingUnit {
     @JsonProperty("ReceiverRef")
     public Object receiverRef;
     @JsonProperty("AdditionalValues")
-    public List<Object> additionalValues = null;
+    public List<AdditionalValue__1> additionalValues = null;
     @JsonProperty("Value")
     public Object value;
     @JsonProperty("ValueCurrencyCode")
